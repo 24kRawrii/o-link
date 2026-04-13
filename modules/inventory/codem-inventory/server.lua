@@ -126,6 +126,16 @@ olink._register('inventory', {
         return { name = data.name, label = data.label, weight = data.weight, description = data.description }
     end,
 
+    ---@param src number
+    ---@param item string
+    ---@param slot number
+    ---@param metadata table
+    ---@return boolean
+    SetMetadata = function(src, item, slot, metadata)
+        codem:SetItemMetadata(src, slot, metadata)
+        return true
+    end,
+
     ---@param item string
     ---@return string
     GetImagePath = function(item)

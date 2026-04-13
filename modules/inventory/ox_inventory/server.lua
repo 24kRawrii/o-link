@@ -125,6 +125,16 @@ olink._register('inventory', {
         }
     end,
 
+    ---@param src number
+    ---@param item string
+    ---@param slot number
+    ---@param metadata table
+    ---@return boolean
+    SetMetadata = function(src, item, slot, metadata)
+        ox_inventory:SetMetadata(src, slot, metadata)
+        return true
+    end,
+
     ---@param item string
     ---@return string
     GetImagePath = function(item)

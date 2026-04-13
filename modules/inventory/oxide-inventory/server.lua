@@ -172,6 +172,31 @@ olink._register('inventory', {
         }
     end,
 
+    ---@param src number
+    ---@param item string
+    ---@param slot number
+    ---@param metadata table
+    ---@return boolean
+    SetMetadata = function(src, item, slot, metadata)
+        local charId = GetCharId(src)
+        if not charId then return false end
+        if type(metadata) ~= 'table' then return false end
+        local inv = GetInv()
+        local items = inv.GetAllItems(charId)
+        local containerId
+        for _, v in ipairs(items or {}) do
+            if v.slot == slot and v.name == item then
+                containerId = v.containerId
+                break
+            end
+        end
+        if not containerId then return false end
+        for key, value in pairs(metadata) do
+            inv.SetItemMetadata(charId, containerId, slot, key, value)
+        end
+        return true
+    end,
+
     ---@param item string
     ---@return string
     GetImagePath = function(item)
