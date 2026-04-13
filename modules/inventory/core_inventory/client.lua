@@ -32,4 +32,13 @@ olink._register('inventory', {
     HasItem = function(item, count)
         return (core:getItemCount(item) or 0) >= (count or 1)
     end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('core_inventory', ('html/img/%s.png'):format(item))
+        if file then return ('nui://core_inventory/html/img/%s.png'):format(item) end
+        return ''
+    end,
 })

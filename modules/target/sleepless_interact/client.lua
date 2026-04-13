@@ -87,4 +87,15 @@ olink._register('target', {
         options = FixOptions(options or {})
         sleepless:addModel(models, options)
     end,
+
+    ---@param options table
+    AddGlobalPed = function(options)
+        options = FixOptions(options or {})
+        sleepless:addGlobalPed(options)
+    end,
+
+    ---@param optionNames string[]
+    RemoveGlobalPed = function(optionNames)
+        sleepless:removeGlobalPed(optionNames)
+    end,
 })

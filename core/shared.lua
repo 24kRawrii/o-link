@@ -27,6 +27,13 @@ function olink._getCapabilities()
     return capabilities
 end
 
+---Strip .png / .webp extension from an item name for image path resolution.
+---@param item string
+---@return string
+function olink._stripExt(item)
+    return item:gsub('%.png$', ''):gsub('%.webp$', '')
+end
+
 exports('olink', function()
     return olink
 end)

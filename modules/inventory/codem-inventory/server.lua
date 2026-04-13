@@ -7,6 +7,22 @@ local stashes = {}
 olink._register('inventory', {
     ---@param src number
     ---@param item string
+    ---@return number
+    GetItemCount = function(src, item)
+        local identifier = olink.character.GetIdentifier(src)
+        if not identifier then return 0 end
+        local playerItems = codem:GetInventory(identifier, src)
+        local total = 0
+        for _, v in pairs(playerItems or {}) do
+            if v.name == item then
+                total = total + (v.amount or v.count or 0)
+            end
+        end
+        return total
+    end,
+
+    ---@param src number
+    ---@param item string
     ---@param count number
     ---@param slot number|nil
     ---@param metadata table|nil
@@ -99,5 +115,14 @@ olink._register('inventory', {
         assert(targetSrc, 'OpenPlayerInventory: targetSrc is required')
         codem:OpenInventory(src, targetSrc)
         return true
+    end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('codem-inventory', ('html/itemimages/%s.png'):format(item))
+        if file then return ('nui://codem-inventory/html/itemimages/%s.png'):format(item) end
+        return ''
     end,
 })

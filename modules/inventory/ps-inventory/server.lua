@@ -7,6 +7,15 @@ local stashes = {}
 olink._register('inventory', {
     ---@param src number
     ---@param item string
+    ---@return number
+    GetItemCount = function(src, item)
+        local itemData = ps:GetItemByName(src, item)
+        if not itemData then return 0 end
+        return itemData.amount or 0
+    end,
+
+    ---@param src number
+    ---@param item string
     ---@param count number
     ---@param slot number|nil
     ---@param metadata table|nil
@@ -89,5 +98,14 @@ olink._register('inventory', {
         assert(targetSrc, 'OpenPlayerInventory: targetSrc is required')
         ps:OpenInventoryById(src, targetSrc)
         return true
+    end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('ps-inventory', ('html/images/%s.png'):format(item))
+        if file then return ('nui://ps-inventory/html/images/%s.png'):format(item) end
+        return ''
     end,
 })

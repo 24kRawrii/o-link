@@ -54,4 +54,13 @@ olink._register('inventory', {
     HasItem = function(item, count)
         return qb:HasItem(item, count or 1) == true
     end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('qb-inventory', ('html/images/%s.png'):format(item))
+        if file then return ('nui://qb-inventory/html/images/%s.png'):format(item) end
+        return ''
+    end,
 })

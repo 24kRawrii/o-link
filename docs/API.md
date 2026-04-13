@@ -139,6 +139,7 @@ olink.supports('vehicles.GetByOwner')  -- true if vehicles module has GetByOwner
 | `OpenPlayerInventory(src, targetSrc)` | | `boolean` | Open target's inventory |
 | `RegisterStash(id, label, slots, weight, owner?)` | | `boolean` | Register a stash |
 | `OpenStash(src, stashId)` | | `nil` | Open a stash for player |
+| `GetImagePath(item)` | `item: string` | `string` | Get NUI image path for item (returns `''` if not found) |
 
 ### Client
 | Function | Args | Returns | Description |
@@ -146,6 +147,7 @@ olink.supports('vehicles.GetByOwner')  -- true if vehicles module has GetByOwner
 | `GetPlayerInventory()` | | `SlotData[]` | Local player's items |
 | `GetItemCount(item)` | `item: string` | `number` | Count of item in inventory |
 | `HasItem(item, count?)` | `item: string, count?: number` | `boolean` | Whether player has item |
+| `GetImagePath(item)` | `item: string` | `string` | Get NUI image path for item (returns `''` if not found) |
 
 ---
 

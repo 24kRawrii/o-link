@@ -7,6 +7,13 @@ local stashes = {}
 olink._register('inventory', {
     ---@param src number
     ---@param item string
+    ---@return number
+    GetItemCount = function(src, item)
+        return quasar:GetItemTotalAmount(src, item) or 0
+    end,
+
+    ---@param src number
+    ---@param item string
     ---@param count number
     ---@param slot number|nil
     ---@param metadata table|nil
@@ -107,5 +114,14 @@ olink._register('inventory', {
         assert(targetSrc, 'OpenPlayerInventory: targetSrc is required')
         quasar:OpenInventoryById(src, targetSrc)
         return true
+    end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('qs-inventory', ('html/images/%s.png'):format(item))
+        if file then return ('nui://qs-inventory/html/images/%s.png'):format(item) end
+        return ''
     end,
 })

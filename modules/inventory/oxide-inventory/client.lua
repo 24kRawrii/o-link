@@ -55,4 +55,13 @@ olink._register('inventory', {
         end
         return total >= count
     end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('oxide-inventory', ('web/public/items/%s.png'):format(item))
+        if file then return ('nui://oxide-inventory/web/public/items/%s.png'):format(item) end
+        return ''
+    end,
 })

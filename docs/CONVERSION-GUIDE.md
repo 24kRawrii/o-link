@@ -94,6 +94,20 @@ olink.money.GetBalanceOffline(identifier, type)
 ### Inventory
 ```lua
 -- OLD
+Bridge.Inventory.GetItemCount(src, item)              -- server
+Bridge.Inventory.GetItemCount(item)                    -- client
+
+-- NEW
+olink.inventory.GetItemCount(src, item)                -- server
+olink.inventory.GetItemCount(item)                     -- client
+
+-- OLD
+Bridge.Inventory.GetImagePath(item)
+
+-- NEW
+olink.inventory.GetImagePath(item)                     -- both server + client
+
+-- OLD
 Bridge.Inventory.AddItem(src, item, count, slot, metadata)
 Bridge.Inventory.RemoveItem(src, item, count, slot)
 Bridge.Inventory.GetPlayerInventory(src)

@@ -98,4 +98,15 @@ olink._register('target', {
     RemoveModel = function(model)
         ox_target:removeModel(model)
     end,
+
+    ---@param options table
+    AddGlobalPed = function(options)
+        options = FixOptions(options)
+        ox_target:addGlobalPed(options)
+    end,
+
+    ---@param optionNames string[]
+    RemoveGlobalPed = function(optionNames)
+        ox_target:removeGlobalPed(optionNames)
+    end,
 })

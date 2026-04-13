@@ -156,4 +156,13 @@ olink._register('inventory', {
             })
         end
     end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('qb-inventory', ('html/images/%s.png'):format(item))
+        if file then return ('nui://qb-inventory/html/images/%s.png'):format(item) end
+        return ''
+    end,
 })

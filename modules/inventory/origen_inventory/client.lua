@@ -36,4 +36,13 @@ olink._register('inventory', {
         local inv = origin:Search('count', item)
         return (inv and inv.count or 0) >= (count or 1)
     end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('origen_inventory', ('html/images/%s.png'):format(item))
+        if file then return ('nui://origen_inventory/html/images/%s.png'):format(item) end
+        return ''
+    end,
 })

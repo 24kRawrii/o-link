@@ -34,4 +34,13 @@ olink._register('inventory', {
         local c = quasar:Search(item) or 0
         return c >= (count or 1)
     end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('qs-inventory', ('html/images/%s.png'):format(item))
+        if file then return ('nui://qs-inventory/html/images/%s.png'):format(item) end
+        return ''
+    end,
 })

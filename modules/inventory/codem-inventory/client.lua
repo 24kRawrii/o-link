@@ -47,4 +47,13 @@ olink._register('inventory', {
         end
         return total >= (count or 1)
     end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('codem-inventory', ('html/itemimages/%s.png'):format(item))
+        if file then return ('nui://codem-inventory/html/itemimages/%s.png'):format(item) end
+        return ''
+    end,
 })

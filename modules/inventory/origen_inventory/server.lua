@@ -8,6 +8,13 @@ local stashes = {}
 olink._register('inventory', {
     ---@param src number
     ---@param item string
+    ---@return number
+    GetItemCount = function(src, item)
+        return origin:getItemCount(src, item, nil, false) or 0
+    end,
+
+    ---@param src number
+    ---@param item string
     ---@param count number
     ---@param slot number|nil
     ---@param metadata table|nil
@@ -95,5 +102,14 @@ olink._register('inventory', {
         assert(targetSrc, 'OpenPlayerInventory: targetSrc is required')
         origin:OpenInventory(src, 'otherplayer', targetSrc)
         return true
+    end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('origen_inventory', ('html/images/%s.png'):format(item))
+        if file then return ('nui://origen_inventory/html/images/%s.png'):format(item) end
+        return ''
     end,
 })

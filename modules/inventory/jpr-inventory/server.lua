@@ -7,6 +7,15 @@ local stashes = {}
 olink._register('inventory', {
     ---@param src number
     ---@param item string
+    ---@return number
+    GetItemCount = function(src, item)
+        local data = jpr:GetItemByName(src, item)
+        if not data then return 0 end
+        return data.amount or 0
+    end,
+
+    ---@param src number
+    ---@param item string
     ---@param count number
     ---@param slot number|nil
     ---@param metadata table|nil
@@ -88,5 +97,14 @@ olink._register('inventory', {
         if not identifier then return false end
         jpr:OpenInventory(src, identifier)
         return true
+    end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('jpr-inventory', ('html/images/%s.png'):format(item))
+        if file then return ('nui://jpr-inventory/html/images/%s.png'):format(item) end
+        return ''
     end,
 })

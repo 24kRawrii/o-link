@@ -117,4 +117,18 @@ olink._register('target', {
             distance = getLargestDistance(options),
         })
     end,
+
+    ---@param options table
+    AddGlobalPed = function(options)
+        options = FixOptions(options or {})
+        qb_target:AddGlobalPed({
+            options  = options,
+            distance = getLargestDistance(options),
+        })
+    end,
+
+    ---@param optionNames string[]
+    RemoveGlobalPed = function(optionNames)
+        qb_target:RemoveGlobalPed(optionNames)
+    end,
 })

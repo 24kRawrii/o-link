@@ -7,6 +7,20 @@ local stashes = {}
 olink._register('inventory', {
     ---@param src number
     ---@param item string
+    ---@return number
+    GetItemCount = function(src, item)
+        local inventory = tgiann:GetPlayerItems(src)
+        local total = 0
+        for k, v in pairs(inventory or {}) do
+            if tonumber(k) and v.name == item then
+                total = total + (v.amount or 0)
+            end
+        end
+        return total
+    end,
+
+    ---@param src number
+    ---@param item string
     ---@param count number
     ---@param slot number|nil
     ---@param metadata table|nil
@@ -104,5 +118,16 @@ olink._register('inventory', {
         assert(targetSrc, 'OpenPlayerInventory: targetSrc is required')
         tgiann:OpenInventoryById(src, targetSrc)
         return true
+    end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local png = LoadResourceFile('inventory_images', ('images/%s.png'):format(item))
+        if png then return ('nui://inventory_images/images/%s.png'):format(item) end
+        local webp = LoadResourceFile('inventory_images', ('images/%s.webp'):format(item))
+        if webp then return ('nui://inventory_images/images/%s.webp'):format(item) end
+        return ''
     end,
 })

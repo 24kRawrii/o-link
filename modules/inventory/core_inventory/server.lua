@@ -7,6 +7,13 @@ local stashes = {}
 olink._register('inventory', {
     ---@param src number
     ---@param item string
+    ---@return number
+    GetItemCount = function(src, item)
+        return core:getItemCount(src, item) or 0
+    end,
+
+    ---@param src number
+    ---@param item string
     ---@param count number
     ---@param slot number|nil
     ---@param metadata table|nil
@@ -104,5 +111,14 @@ olink._register('inventory', {
         if not identifier then return false end
         core:openInventory(src, 'stash-' .. string.gsub(identifier, ':', ''), 'stash', nil, nil, true, nil, false)
         return true
+    end,
+
+    ---@param item string
+    ---@return string
+    GetImagePath = function(item)
+        item = olink._stripExt(item)
+        local file = LoadResourceFile('core_inventory', ('html/img/%s.png'):format(item))
+        if file then return ('nui://core_inventory/html/img/%s.png'):format(item) end
+        return ''
     end,
 })
