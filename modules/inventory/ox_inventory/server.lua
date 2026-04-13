@@ -9,6 +9,22 @@ local stashes = {}
 olink._register('inventory', {
     ---@param src number
     ---@param item string
+    ---@return number
+    GetItemCount = function(src, item)
+        return ox_inventory:Search(src, 'count', item) or 0
+    end,
+
+    ---@param src number
+    ---@param item string
+    ---@param count number|nil
+    ---@return boolean
+    HasItem = function(src, item, count)
+        local total = ox_inventory:Search(src, 'count', item) or 0
+        return total >= (count or 1)
+    end,
+
+    ---@param src number
+    ---@param item string
     ---@param count number
     ---@param slot number|nil
     ---@param metadata table|nil

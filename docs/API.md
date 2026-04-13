@@ -130,6 +130,8 @@ olink.supports('vehicles.GetByOwner')  -- true if vehicles module has GetByOwner
 ### Server
 | Function | Args | Returns | Description |
 |----------|------|---------|-------------|
+| `GetItemCount(src, item)` | `src: number, item: string` | `number` | Count of item in player's inventory |
+| `HasItem(src, item, count?)` | `src: number, item: string, count?: number` | `boolean` | Whether player has item (count defaults to 1) |
 | `AddItem(src, item, count, slot?, metadata?)` | | `boolean` | Add item to player |
 | `RemoveItem(src, item, count, slot?, metadata?)` | | `boolean` | Remove item from player |
 | `GetItemBySlot(src, slot)` | | `SlotData\|nil` | Get item in specific slot |
@@ -184,6 +186,8 @@ olink.supports('vehicles.GetByOwner')  -- true if vehicles module has GetByOwner
 | `RemoveLocalEntity(entity, optionNames?)` | | `nil` | Remove entity target |
 | `AddModel(models, options)` | | `nil` | Add target to model(s) |
 | `RemoveModel(model)` | | `nil` | Remove model target |
+| `AddGlobalPed(options)` | `options: table` | `nil` | Add target options to all peds |
+| `RemoveGlobalPed(optionNames)` | `optionNames: string[]` | `nil` | Remove global ped options by name |
 
 ---
 

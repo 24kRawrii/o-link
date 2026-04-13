@@ -24,6 +24,39 @@ local stashes = {}
 olink._register('inventory', {
     ---@param src number
     ---@param item string
+    ---@return number
+    GetItemCount = function(src, item)
+        local charId = GetCharId(src)
+        if not charId then return 0 end
+        local items = GetInv().GetAllItems(charId)
+        local total = 0
+        for _, v in ipairs(items or {}) do
+            if v.name == item then
+                total = total + (v.amount or v.count or 0)
+            end
+        end
+        return total
+    end,
+
+    ---@param src number
+    ---@param item string
+    ---@param count number|nil
+    ---@return boolean
+    HasItem = function(src, item, count)
+        local charId = GetCharId(src)
+        if not charId then return false end
+        local items = GetInv().GetAllItems(charId)
+        local total = 0
+        for _, v in ipairs(items or {}) do
+            if v.name == item then
+                total = total + (v.amount or v.count or 0)
+            end
+        end
+        return total >= (count or 1)
+    end,
+
+    ---@param src number
+    ---@param item string
     ---@param count number
     ---@param slot number|nil
     ---@param metadata table|nil

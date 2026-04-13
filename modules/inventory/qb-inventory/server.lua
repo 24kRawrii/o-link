@@ -18,6 +18,41 @@ local v2 = isV2()
 olink._register('inventory', {
     ---@param src number
     ---@param item string
+    ---@return number
+    GetItemCount = function(src, item)
+        local player = QBCore.Functions.GetPlayer(src)
+        if not player then return 0 end
+        local items = player.PlayerData.items
+        if not items then return 0 end
+        local total = 0
+        for _, v in pairs(items) do
+            if v and v.name == item then
+                total = total + (v.amount or 0)
+            end
+        end
+        return total
+    end,
+
+    ---@param src number
+    ---@param item string
+    ---@param count number|nil
+    ---@return boolean
+    HasItem = function(src, item, count)
+        local player = QBCore.Functions.GetPlayer(src)
+        if not player then return false end
+        local items = player.PlayerData.items
+        if not items then return false end
+        local total = 0
+        for _, v in pairs(items) do
+            if v and v.name == item then
+                total = total + (v.amount or 0)
+            end
+        end
+        return total >= (count or 1)
+    end,
+
+    ---@param src number
+    ---@param item string
     ---@param count number
     ---@param slot number|nil
     ---@param metadata table|nil
