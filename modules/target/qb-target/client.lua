@@ -131,4 +131,34 @@ olink._register('target', {
     RemoveGlobalPed = function(optionNames)
         qb_target:RemoveGlobalPed(optionNames)
     end,
+
+    ---@param options table
+    AddGlobalVehicle = function(options)
+        options = FixOptions(options or {})
+        qb_target:AddGlobalVehicle({
+            options  = options,
+            distance = getLargestDistance(options),
+        })
+    end,
+
+    ---@param optionNames string[]
+    RemoveGlobalVehicle = function(optionNames)
+        qb_target:RemoveGlobalVehicle(optionNames)
+    end,
+
+    ---@param netId number|number[]
+    ---@param options table
+    AddNetworkedEntity = function(netId, options)
+        options = FixOptions(options or {})
+        qb_target:AddTargetEntity(netId, {
+            options  = options,
+            distance = getLargestDistance(options),
+        })
+    end,
+
+    ---@param netId number|number[]
+    ---@param optionNames string|string[]|nil
+    RemoveNetworkedEntity = function(netId, optionNames)
+        qb_target:RemoveTargetEntity(netId, optionNames)
+    end,
 })
