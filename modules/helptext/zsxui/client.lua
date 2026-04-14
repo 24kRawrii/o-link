@@ -11,3 +11,11 @@ olink._register('helptext', {
         exports['ZSX_UIV2']:TextUI_RemovePersistent(false)
     end,
 })
+
+RegisterNetEvent('o-link:client:helptextShow', function(message, position)
+    olink.helptext.Show(message, position)
+end)
+
+RegisterNetEvent('o-link:client:helptextHide', function()
+    olink.helptext.Hide()
+end)

@@ -143,4 +143,64 @@ olink._register('inventory', {
         if file then return ('nui://qs-inventory/html/images/%s.png'):format(item) end
         return ''
     end,
+
+    ---@return table All item definitions
+    Items = function()
+        return quasar:GetItemList() or {}
+    end,
+
+    ---@param src number
+    ---@param item string
+    ---@param count number|nil
+    ---@return boolean
+    CanCarryItem = function(src, item, count)
+        return quasar:CanCarryItem(src, item, count or 1) == true
+    end,
+
+    ---@param id string
+    ---@return table[]
+    GetStashItems = function(id)
+        return {}
+    end,
+
+    ---@param id string
+    ---@param item string
+    ---@param count number
+    ---@return boolean
+    RemoveStashItem = function(id, item, count)
+        return false
+    end,
+
+    ---@param id string
+    ---@param _type string|nil unused
+    ---@return boolean
+    ClearStash = function(id, _type)
+        return false
+    end,
+
+    ---@param identifier string plate or trunk identifier
+    ---@param items table[]
+    ---@return boolean
+    AddTrunkItems = function(identifier, items)
+        return false
+    end,
+
+    ---@param oldPlate string
+    ---@param newPlate string
+    ---@return boolean
+    UpdatePlate = function(oldPlate, newPlate)
+        return false
+    end,
+
+    ---@param src number
+    ---@param shopTitle string
+    OpenShop = function(src, shopTitle)
+    end,
+
+    ---@param shopTitle string
+    ---@param shopInventory table
+    ---@param shopCoords table|nil
+    ---@param shopGroups table|nil
+    RegisterShop = function(shopTitle, shopInventory, shopCoords, shopGroups)
+    end,
 })

@@ -11,3 +11,11 @@ olink._register('helptext', {
         TriggerEvent('cd_drawtextui:HideUI')
     end,
 })
+
+RegisterNetEvent('o-link:client:helptextShow', function(message, position)
+    olink.helptext.Show(message, position)
+end)
+
+RegisterNetEvent('o-link:client:helptextHide', function()
+    olink.helptext.Hide()
+end)

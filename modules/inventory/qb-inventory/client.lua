@@ -71,4 +71,10 @@ olink._register('inventory', {
         if file then return ('nui://qb-inventory/html/images/%s.png'):format(item) end
         return ''
     end,
+
+    ---@return table All item definitions
+    Items = function()
+        local core = QBCore and QBCore.Shared and QBCore.Shared.Items
+        return core or {}
+    end,
 })

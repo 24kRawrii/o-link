@@ -143,4 +143,80 @@ olink._register('inventory', {
         if file then return ('nui://ox_inventory/web/images/%s.png'):format(item) end
         return ''
     end,
+
+    ---@return table All item definitions
+    Items = function()
+        return ox_inventory:Items() or {}
+    end,
+
+    ---@param src number
+    ---@param item string
+    ---@param count number|nil
+    ---@return boolean
+    CanCarryItem = function(src, item, count)
+        return ox_inventory:CanCarryItem(src, item, count or 1) == true
+    end,
+
+    ---@param id string
+    ---@return table[]
+    GetStashItems = function(id)
+        return ox_inventory:GetInventoryItems(tostring(id), false) or {}
+    end,
+
+    ---@param id string
+    ---@param item string
+    ---@param count number
+    ---@return boolean
+    RemoveStashItem = function(id, item, count)
+        local success = ox_inventory:RemoveItem(tostring(id), item, count)
+        return success == true
+    end,
+
+    ---@param id string
+    ---@param _type string|nil unused
+    ---@return boolean
+    ClearStash = function(id, _type)
+        ox_inventory:ClearInventory(tostring(id))
+        return true
+    end,
+
+    ---@param identifier string plate or trunk identifier
+    ---@param items table[]
+    ---@return boolean
+    AddTrunkItems = function(identifier, items)
+        local trunkId = ('trunk_%s'):format(tostring(identifier))
+        if not stashes[trunkId] then
+            stashes[trunkId] = true
+            ox_inventory:RegisterStash(trunkId, 'Vehicle Trunk', 50, 100000, nil)
+        end
+        Wait(100)
+        for _, item in ipairs(items or {}) do
+            ox_inventory:AddItem(trunkId, item.name, item.count or item.amount or 1, item.metadata)
+        end
+        return true
+    end,
+
+    ---@param oldPlate string
+    ---@param newPlate string
+    ---@return boolean
+    UpdatePlate = function(oldPlate, newPlate)
+        MySQL.update.await('UPDATE ox_inventory SET owner = ? WHERE owner = ?', {
+            'trunk_' .. newPlate, 'trunk_' .. oldPlate
+        })
+        return true
+    end,
+
+    ---@param src number
+    ---@param shopTitle string
+    OpenShop = function(src, shopTitle)
+        ox_inventory:openInventory(src, 'shop', { type = shopTitle })
+    end,
+
+    ---@param shopTitle string
+    ---@param shopInventory table
+    ---@param shopCoords table|nil
+    ---@param shopGroups table|nil
+    RegisterShop = function(shopTitle, shopInventory, shopCoords, shopGroups)
+        ox_inventory:RegisterShop(shopTitle, { inventory = shopInventory })
+    end,
 })

@@ -52,4 +52,9 @@ olink._register('inventory', {
         if file then return ('nui://qs-inventory/html/images/%s.png'):format(item) end
         return ''
     end,
+
+    ---@return table All item definitions
+    Items = function()
+        return quasar:GetItemList() or {}
+    end,
 })

@@ -8,6 +8,12 @@ AddEventHandler('oxide:core:characterUnloaded', function(src)
     TriggerEvent('olink:server:playerUnload', src)
 end)
 
+AddEventHandler('oxide:core:jobChanged', function(src, charId, oldJob, newJob)
+    if newJob and newJob.jobName then
+        TriggerEvent('olink:server:jobChanged', src, newJob.jobName)
+    end
+end)
+
 AddEventHandler('playerDropped', function()
     local src = source
     TriggerEvent('olink:server:playerUnload', src)

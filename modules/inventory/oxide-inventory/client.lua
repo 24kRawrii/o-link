@@ -1,4 +1,5 @@
 if GetResourceState('oxide-inventory') == 'missing' then return end
+if GetResourceState('oxide-core') == 'missing' then return end
 
 local Oxide = exports['oxide-core']:Core()
 
@@ -78,5 +79,10 @@ olink._register('inventory', {
         local file = LoadResourceFile('oxide-inventory', ('web/public/items/%s.png'):format(item))
         if file then return ('nui://oxide-inventory/web/public/items/%s.png'):format(item) end
         return ''
+    end,
+
+    ---@return table All item definitions
+    Items = function()
+        return Oxide.Items or {}
     end,
 })

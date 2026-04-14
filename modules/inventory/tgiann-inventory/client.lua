@@ -53,4 +53,9 @@ olink._register('inventory', {
         if webp then return ('nui://inventory_images/images/%s.webp'):format(item) end
         return ''
     end,
+
+    ---@return table All item definitions
+    Items = function()
+        return tgiann:GetItemList() or {}
+    end,
 })

@@ -205,4 +205,87 @@ olink._register('inventory', {
         if file then return ('nui://oxide-inventory/web/public/items/%s.png'):format(item) end
         return ''
     end,
+
+    ---@return table All item definitions
+    Items = function()
+        return Oxide.Items or {}
+    end,
+
+    ---@param src number
+    ---@param item string
+    ---@param count number|nil
+    ---@return boolean
+    CanCarryItem = function(src, item, count)
+        local charId = GetCharId(src)
+        if not charId then return false end
+        local ok = GetInv().CanAddItem(charId, item, count or 1)
+        return ok == true
+    end,
+
+    ---@param id string
+    ---@return table[]
+    GetStashItems = function(id)
+        return GetInv().GetStashItems(tostring(id)) or {}
+    end,
+
+    ---@param id string
+    ---@param item string
+    ---@param count number
+    ---@return boolean
+    RemoveStashItem = function(id, item, count)
+        return GetInv().RemoveStashItem(tostring(id), item, count) ~= nil
+    end,
+
+    ---@param id string
+    ---@param _type string|nil unused
+    ---@return boolean
+    ClearStash = function(id, _type)
+        id = tostring(id)
+        local items = GetInv().GetStashItems(id)
+        for _, v in ipairs(items or {}) do
+            GetInv().RemoveStashItem(id, v.name, v.amount or v.count or 1)
+        end
+        return true
+    end,
+
+    ---@param identifier string plate or trunk identifier
+    ---@param items table[]
+    ---@return boolean
+    AddTrunkItems = function(identifier, items)
+        local trunkId = 'trunk_' .. tostring(identifier)
+        if not stashes[trunkId] then
+            stashes[trunkId] = true
+            GetInv().RegisterStash(trunkId, 'Vehicle Trunk', 50, 100000, nil)
+        end
+        Wait(100)
+        local inv = GetInv()
+        for _, item in ipairs(items or {}) do
+            inv.AddStashItem(trunkId, item.name, item.count or item.amount or 1, item.metadata)
+        end
+        return true
+    end,
+
+    ---@param oldPlate string
+    ---@param newPlate string
+    ---@return boolean
+    UpdatePlate = function(oldPlate, newPlate)
+        MySQL.update.await('UPDATE containers SET stash_id = ? WHERE stash_id = ?', {
+            'trunk_' .. newPlate, 'trunk_' .. oldPlate
+        })
+        return true
+    end,
+
+    ---@param src number
+    ---@param shopTitle string
+    OpenShop = function(src, shopTitle)
+        TriggerClientEvent('oxide:inventory:openShop', src, shopTitle)
+    end,
+
+    ---@param shopTitle string
+    ---@param shopInventory table
+    ---@param shopCoords table|nil
+    ---@param shopGroups table|nil
+    RegisterShop = function(shopTitle, shopInventory, shopCoords, shopGroups)
+        TriggerClientEvent('oxide:inventory:registerShop', -1, shopTitle, shopInventory, shopCoords, shopGroups)
+    end,
 })

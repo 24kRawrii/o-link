@@ -53,4 +53,9 @@ olink._register('inventory', {
         if file then return ('nui://origen_inventory/html/images/%s.png'):format(item) end
         return ''
     end,
+
+    ---@return table All item definitions
+    Items = function()
+        return origin:Items() or {}
+    end,
 })

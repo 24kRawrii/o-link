@@ -52,4 +52,9 @@ olink._register('inventory', {
         if file then return ('nui://ox_inventory/web/images/%s.png'):format(item) end
         return ''
     end,
+
+    ---@return table All item definitions
+    Items = function()
+        return ox_inventory:Items() or {}
+    end,
 })

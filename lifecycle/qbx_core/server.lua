@@ -11,6 +11,13 @@ RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(src)
     TriggerEvent('olink:server:playerUnload', src)
 end)
 
+RegisterNetEvent('QBCore:Server:OnJobUpdate', function(src, jobData)
+    src = src or source
+    if jobData and jobData.name then
+        TriggerEvent('olink:server:jobChanged', src, jobData.name)
+    end
+end)
+
 AddEventHandler('playerDropped', function()
     local src = source
     TriggerEvent('olink:server:playerUnload', src)

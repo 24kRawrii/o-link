@@ -38,6 +38,11 @@ server_scripts {
     'modules/bossmenu/**/server.lua',
     'modules/skills/**/server.lua',
     'modules/vehicleOwnership/**/server.lua',
+    'modules/death/**/server.lua',
+    'modules/needs/**/server.lua',
+    'modules/gang/**/server.lua',
+    'modules/jobcount/server.lua',
+    'modules/helptext/server.lua',
     'lifecycle/**/server.lua',
     'core/loader_server.lua',
 }
@@ -65,6 +70,9 @@ client_scripts {
     'modules/housing/**/client.lua',
     'modules/bossmenu/**/client.lua',
     'modules/skills/**/client.lua',
+    'modules/death/**/client.lua',
+    'modules/gang/**/client.lua',
+    'modules/vehicles/**/client.lua',
     'lifecycle/**/client.lua',
     'core/loader_client.lua',
 }
