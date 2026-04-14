@@ -1,5 +1,5 @@
-if GetResourceState('oxide-inventory') == 'started' then return end
-if GetResourceState('codem-inventory') == 'missing' then return end
+if not olink._guardImpl('Inventory', 'codem-inventory', 'codem-inventory') then return end
+if not olink._hasOverride('Inventory') and GetResourceState('oxide-inventory') == 'started' then return end
 
 local codem = exports['codem-inventory']
 

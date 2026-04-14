@@ -1,4 +1,4 @@
-if GetResourceState('lb-tablet') == 'missing' then return end
+if not olink._guardImpl('Dispatch', 'lb-tablet', 'lb-tablet') then return end
 
 olink._register('dispatch', {
     ---@return string

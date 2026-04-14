@@ -1,4 +1,4 @@
-if GetResourceState('qb-doorlock') == 'missing' then return end
+if not olink._guardImpl('Doorlock', 'qb-doorlock', 'qb-doorlock') then return end
 
 olink._register('doorlock', {
     ---@return string | nil

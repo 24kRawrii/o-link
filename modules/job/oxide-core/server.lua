@@ -1,4 +1,4 @@
-if GetResourceState('oxide-core') == 'missing' then return end
+if not olink._guardImpl('Job', 'oxide-core', 'oxide-core') then return end
 
 local Oxide = exports['oxide-core']:Core()
 

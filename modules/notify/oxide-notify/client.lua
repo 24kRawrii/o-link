@@ -1,4 +1,4 @@
-if GetResourceState('oxide-notify') == 'missing' then return end
+if not olink._guardImpl('Notify', 'oxide-notify', 'oxide-notify') then return end
 
 local mod = {
     ---@param message string

@@ -1,5 +1,5 @@
-if GetResourceState('oxide-inventory') == 'started' then return end
-if GetResourceState('tgiann-inventory') == 'missing' then return end
+if not olink._guardImpl('Inventory', 'tgiann-inventory', 'tgiann-inventory') then return end
+if not olink._hasOverride('Inventory') and GetResourceState('oxide-inventory') == 'started' then return end
 
 local tgiann = exports['tgiann-inventory']
 local stashes = {}

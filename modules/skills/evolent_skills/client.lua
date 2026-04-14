@@ -1,4 +1,4 @@
-if GetResourceState('evolent_skills') == 'missing' then return end
+if not olink._guardImpl('Skills', 'evolent_skills', 'evolent_skills') then return end
 
 olink._register('skills', {
     ---@return string

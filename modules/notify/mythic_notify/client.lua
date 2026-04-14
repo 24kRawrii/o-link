@@ -1,5 +1,5 @@
-if GetResourceState('oxide-notify') == 'started' then return end
-if GetResourceState('mythic_notify') == 'missing' then return end
+if not olink._guardImpl('Notify', 'mythic_notify', 'mythic_notify') then return end
+if not olink._hasOverride('Notify') and GetResourceState('oxide-notify') == 'started' then return end
 
 local mod = {
     ---@param message string

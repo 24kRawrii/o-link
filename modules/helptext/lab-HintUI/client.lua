@@ -1,4 +1,4 @@
-if GetResourceState('lab-HintUI') == 'missing' then return end
+if not olink._guardImpl('HelpText', 'lab-HintUI', 'lab-HintUI') then return end
 
 olink._register('helptext', {
     ---@param message string

@@ -1,4 +1,4 @@
-if GetResourceState('qbx_core') == 'missing' then return end
+if not olink._guardImpl('Framework', 'qbx_core', 'qbx_core') then return end
 
 -- QBX Core fires the same client-side events as QBCore
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()

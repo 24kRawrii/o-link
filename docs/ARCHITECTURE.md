@@ -2,164 +2,163 @@
 
 ## Overview
 
-o-link is a FiveM framework bridge that abstracts differences between Oxide, QBCore, QBX, and ESX. Resources code against `olink.*` APIs and the correct framework implementation activates at runtime via guard clauses.
+`o-link` is a bridge resource that normalizes framework- and dependency-specific APIs behind a single exported object:
 
-## How It Works
+```lua
+olink = exports['o-link']:olink()
+```
 
-### Loading (glob + guard clause pattern)
+The current resource targets Oxide, QBCore, QBX, and ESX-related ecosystems, plus a large number of inventory, notify, dispatch, phone, housing, clothing, and utility resources.
 
-All implementation files are loaded via `**` glob patterns in `fxmanifest.lua`:
+## Core Pattern
+
+The runtime model is:
+
+1. `fxmanifest.lua` loads broad glob patterns.
+2. Each implementation file immediately checks whether its dependency is available.
+3. Matching files self-register a namespace through `olink._register(namespace, impl)`.
+4. Consumers call `olink.<namespace>.<function>`.
+
+Example from the current manifest:
 
 ```lua
 server_scripts {
     'modules/framework/**/server.lua',
     'modules/character/**/server.lua',
-    -- etc
+    'modules/job/**/server.lua',
+    'modules/inventory/**/server.lua',
+    'lifecycle/**/server.lua',
+    'core/loader_server.lua',
 }
 ```
 
-Every implementation file starts with a guard clause:
+Example guard-clause structure:
 
 ```lua
-if GetResourceState('oxide-core') ~= 'started' then return end
+if GetResourceState('qb-core') == 'missing' then return end
+if GetResourceState('qbx_core') == 'started' then return end
+
+olink._register('framework', {
+    GetName = function()
+        return 'qb-core'
+    end,
+})
 ```
 
-FiveM loads ALL files. The ones whose resource isn't running `return` immediately. The one that matches calls `olink._register('namespace', { ... })` to register its functions. Last writer wins if multiple pass (controlled by priority guards).
+## Registration Model
 
-### Priority System
-
-When multiple implementations could be active (e.g., both ox_lib and oxide-notify are running), priority guards prevent duplicates:
+The shared core lives in [`../core/shared.lua`](../core/shared.lua):
 
 ```lua
--- ox_lib notify defers to oxide-notify
-if GetResourceState('oxide-notify') == 'started' then return end
-```
-
-General priority: Oxide-specific > dedicated third-party > ox_lib fallback.
-
-### Module Registration
-
-```lua
--- core/shared.lua creates the global:
 olink = {}
 
 function olink._register(namespace, impl)
     olink[namespace] = impl
 end
 
--- Each module file self-registers:
-olink._register('framework', {
-    GetName = function() return 'oxide-core' end,
-    -- ...
-})
+function olink.supports(path)
+    -- dot-path capability check
+end
 ```
 
-### No Dynamic Loading
+This is simpler than the local `community_bridge` resource's `Bridge.RegisterModule(...)` bootstrap in [`../../community_bridge/init.lua`](../../community_bridge/init.lua): `o-link` stores namespaces directly on one exported object instead of building a mixed-capitalization module tree.
 
-Unlike the original design (which used `LoadResourceFile` + `load()`), o-link uses the community_bridge pattern of loading all files as scripts. This avoids timing issues — all modules are available before any consuming resource starts.
+## What Is Verified Today
 
-## File Structure
+- `o-link` uses glob-loaded implementation files, not runtime `load()` or `LoadResourceFile(...)` evaluation for bridge bootstrapping.
+- Lifecycle adapters exist for `oxide-core`, `qb-core`, `qbx_core`, and `es_extended`.
+- Loader summaries exist on both server and client.
+- The client loader explicitly tracks `vehicleproperties` as its own namespace even though its file lives under `modules/vehicles/properties/client.lua`.
+- Server-only relay modules exist for `notify` and `helptext`.
+- `jobcount` is implemented as an internal `GlobalState`-backed counting module.
 
-```
+## File Layout
+
+```text
 o-link/
-├── fxmanifest.lua              -- Glob patterns load everything
-├── config.lua                  -- Override config (rarely needed)
-├── core/
-│   ├── shared.lua              -- olink table, _register, supports, export
-│   ├── loader_server.lua       -- Summary print only
-│   └── loader_client.lua       -- Summary print only
-├── modules/
-│   ├── callback/shared.lua     -- Loaded via shared_scripts (available immediately)
-│   ├── framework/<impl>/       -- 4 frameworks: oxide-core, qb-core, qbx_core, es_extended
-│   ├── character/<impl>/       -- Same 4 frameworks
-│   ├── job/<impl>/             -- Same 4 frameworks
-│   ├── money/<impl>/           -- oxide-accounts, qb-core, qbx_core, es_extended
-│   ├── inventory/<impl>/       -- 10 inventory systems
-│   ├── vehicles/<impl>/        -- oxide-vehicles, qb-garages, qbx_vehicles, esx_vehicleshop
-│   ├── notify/<impl>/          -- 14 notification systems
-│   ├── target/<impl>/          -- ox_target, qb-target, sleepless_interact
-│   ├── helptext/<impl>/        -- 7 implementations
-│   ├── progressbar/<impl>/     -- 7 implementations
-│   ├── vehiclekey/<impl>/      -- 14 key systems
-│   ├── entity/                 -- Framework-agnostic (server.lua + client.lua)
-│   ├── fuel/<impl>/            -- 14 fuel systems
-│   ├── weather/<impl>/         -- 5 weather systems
-│   ├── input/<impl>/           -- 3 input systems
-│   ├── menu/<impl>/            -- 5 menu systems
-│   ├── zones/<impl>/           -- oxlib, polyzone
-│   ├── banking/<impl>/         -- 8 banking systems
-│   ├── phone/<impl>/           -- 7 phone systems
-│   ├── clothing/<impl>/        -- 7 clothing systems
-│   ├── dispatch/<impl>/        -- 14 dispatch systems
-│   ├── doorlock/<impl>/        -- 4 doorlock systems
-│   ├── housing/<impl>/         -- 5 housing systems
-│   ├── bossmenu/<impl>/        -- 3 boss menu systems
-│   ├── skills/<impl>/          -- 3 skill systems
-│   └── vehicleOwnership/<impl>/ -- 4 ownership systems
-└── lifecycle/
-    ├── oxide-core/             -- Translates oxide events → olink:* events
-    ├── qb-core/
-    ├── qbx_core/
-    └── es_extended/
+|-- fxmanifest.lua
+|-- config.lua
+|-- core/
+|   |-- shared.lua
+|   |-- loader_server.lua
+|   `-- loader_client.lua
+|-- lifecycle/
+|   |-- oxide-core/
+|   |-- qb-core/
+|   |-- qbx_core/
+|   `-- es_extended/
+`-- modules/
+    |-- callback/
+    |-- framework/
+    |-- character/
+    |-- job/
+    |-- money/
+    |-- inventory/
+    |-- vehicles/
+    |-- notify/
+    |-- helptext/
+    |-- target/
+    |-- progressbar/
+    |-- vehiclekey/
+    |-- fuel/
+    |-- weather/
+    |-- input/
+    |-- menu/
+    |-- zones/
+    |-- entity/
+    |-- banking/
+    |-- phone/
+    |-- clothing/
+    |-- dispatch/
+    |-- doorlock/
+    |-- housing/
+    |-- bossmenu/
+    |-- skills/
+    |-- vehicleOwnership/
+    |-- death/
+    |-- needs/
+    |-- gang/
+    `-- jobcount/
 ```
 
-## Modules Unique to o-link (not in community_bridge)
+## Differences From Local community_bridge
 
-These modules don't exist in community_bridge — they're o-link originals:
+These differences are verified from the local codebase, not assumed:
 
-| Module | Purpose |
-|--------|---------|
-| `character` | First-class character data: identifier, name, metadata, SetBoss, offline Search/GetOffline |
-| `job` | Separated from framework: Get, Set, SetDuty, GetPlayersWithJob |
-| `money` | Separated from framework: Add, Remove, GetBalance + offline operations |
-| `vehicles` | Vehicle search: SearchByPlate, GetByPlate, GetByOwner |
-| `entity` | Proximity-based entity system with server→client sync |
-| `callback` | Framework-agnostic RPC system |
+- `o-link` splits framework concerns across `framework`, `character`, `job`, and `money` namespaces instead of keeping all player-facing operations under one large framework module.
+- `o-link` adds `entity`, `jobcount`, and `vehicleproperties` namespaces that are not present as equivalent namespaces in the local `community_bridge/init.lua` registration list.
+- `o-link` does not ship the `community_bridge` web UI bundle or dialogue/shop/version utility layers visible in the local `community_bridge` manifest.
+- `o-link` still uses the same broad guard-clause pattern of loading many implementations and allowing the matching implementation to register itself.
 
-## Identifier Convention
+## Event Naming
 
-| Framework | GetIdentifier returns | DB column |
-|-----------|----------------------|-----------|
-| Oxide | `stateId` (e.g., "ABC123") | `characters.state_id` |
-| QBCore | `citizenid` (e.g., "HJK84920") | `players.citizenid` |
-| QBX | `citizenid` | `players.citizenid` |
-| ESX | `identifier` (license) | `users.identifier` |
+- Local bridge lifecycle events use the `olink:` prefix.
+- Network relay events use the `o-link:` prefix.
+- Callback transport uses `o-link:CS:Callback`, `o-link:SC:Callback`, `o-link:CSR:Callback`, and `o-link:SCR:Callback`.
 
-Internal o-link modules that need framework-specific DB primary keys (e.g., oxide-accounts needs numeric `char_id`) resolve the identifier internally via `ResolveCharId()`. Consumers never need to know about this.
+## Configuration Status
 
-## Event Naming Convention
+Two config surfaces exist in [`../config.lua`](../config.lua):
 
-- **Local events** (TriggerEvent): `olink:` prefix — `olink:server:playerReady`, `olink:client:playerUnload`
-- **Network events** (TriggerClientEvent): `o-link:` prefix — `o-link:client:notify`, `o-link:client:entity:create`
-- **Callback events**: `o-link:CS:Callback`, `o-link:SC:Callback`
+- `Config.Debug`
+- `Config.Overrides`
 
-## Self-Registration Pattern
+`Config.Debug` controls loader logging.
 
-Resources that provide APIs through o-link (like oxide-banking) register themselves after initialization:
-
-```lua
--- oxide-banking depends on o-link (in fxmanifest)
--- o-link does NOT depend on oxide-banking
--- oxide-banking self-registers after init:
-olink._register('banking', { ... })
-```
-
-This avoids circular dependencies while still making the API available through the bridge.
+`Config.Overrides` is consumed during implementation selection. When an override is set for a namespace, only the matching implementation is allowed to load for that namespace and normal priority blocker guards are bypassed for that selected implementation.
 
 ## Ensure Order
 
-```
-# Framework core (before o-link)
-ensure oxide-core / qb-core / es_extended
-ensure oxide-accounts / oxide-inventory / oxide-vehicles / etc
+Ensure framework/core dependencies first, then `o-link`, then consumers.
 
-# Bridge (after resources it detects, before resources that consume it)
+```cfg
+ensure oxide-core
+ensure oxide-inventory
+ensure oxide-accounts
+ensure oxide-vehicles
+
 ensure o-link
 
-# Resources that self-register AND consume o-link
-ensure oxide-banking
-
-# Pure consumers
 ensure oxide-police
 ensure oxide-shops
 ```

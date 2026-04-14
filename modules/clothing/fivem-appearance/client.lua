@@ -1,6 +1,6 @@
-if GetResourceState('fivem-appearance') == 'missing' then return end
-if GetResourceState('rcore_clothing') == 'started' then return end
-if GetResourceState('17mov_CharacterSystem') == 'started' then return end
+if not olink._guardImpl('Clothing', 'fivem-appearance', 'fivem-appearance') then return end
+if not olink._hasOverride('Clothing') and GetResourceState('rcore_clothing') == 'started' then return end
+if not olink._hasOverride('Clothing') and GetResourceState('17mov_CharacterSystem') == 'started' then return end
 
 olink._register('clothing', {
     ---@return string

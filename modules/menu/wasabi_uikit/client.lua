@@ -1,6 +1,6 @@
-if GetResourceState('wasabi_uikit') == 'missing' then return end
-if GetResourceState('oxide-menu') == 'started' then return end
-if GetResourceState('qb-menu') == 'started' then return end
+if not olink._guardImpl('Menu', 'wasabi_uikit', 'wasabi_uikit') then return end
+if not olink._hasOverride('Menu') and GetResourceState('oxide-menu') == 'started' then return end
+if not olink._hasOverride('Menu') and GetResourceState('qb-menu') == 'started' then return end
 
 local menus = {}
 

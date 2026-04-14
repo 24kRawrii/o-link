@@ -1,4 +1,4 @@
-if GetResourceState('cd_drawtextui') == 'missing' then return end
+if not olink._guardImpl('HelpText', 'cd_drawtextui', 'cd_drawtextui') then return end
 
 olink._register('helptext', {
     ---@param message string

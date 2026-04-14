@@ -1,4 +1,4 @@
-if GetResourceState('oxide-menu') == 'missing' then return end
+if not olink._guardImpl('Menu', 'oxide-menu', 'oxide-menu') then return end
 
 -- Store callbacks locally since functions can't cross the export boundary to oxide-menu
 local menuCallbacks = {}

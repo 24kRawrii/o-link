@@ -1,5 +1,5 @@
-if GetResourceState('oxide-inventory') == 'started' then return end
-if GetResourceState('qs-inventory') == 'missing' then return end
+if not olink._guardImpl('Inventory', 'qs-inventory', 'qs-inventory') then return end
+if not olink._hasOverride('Inventory') and GetResourceState('oxide-inventory') == 'started' then return end
 
 local quasar = exports['qs-inventory']
 

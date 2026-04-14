@@ -1,4 +1,4 @@
-if GetResourceState('oxide-progressbar') == 'missing' then return end
+if not olink._guardImpl('ProgressBar', 'oxide-progressbar', 'oxide-progressbar') then return end
 
 olink._register('progressbar', {
     ---@param options table { duration, label, canCancel?, disable?: { move, car, combat, mouse }, anim?: { dict, clip, flag } }

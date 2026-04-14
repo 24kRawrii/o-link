@@ -1,4 +1,4 @@
-if GetResourceState('qbx_core') == 'missing' then return end
+if not olink._guardImpl('Money', 'qbx_core', 'qbx_core') then return end
 
 local QBox = exports.qbx_core
 

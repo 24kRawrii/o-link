@@ -1,5 +1,5 @@
-if GetResourceState('qbx_core') == 'missing' then return end
-if GetResourceState('oxide-core') == 'started' then return end
+if not olink._guardImpl('Gang', 'qbx_core', 'qbx_core') then return end
+if not olink._hasOverride('Gang') and GetResourceState('oxide-core') == 'started' then return end
 
 olink._register('gang', {
     ---@return table|nil { name, label, grade, gradeLabel, rank }

@@ -1,5 +1,5 @@
-if GetResourceState('oxide-notify') == 'started' then return end
-if GetResourceState('ZSX_UIV2') == 'missing' then return end
+if not olink._guardImpl('Notify', 'zsxui', 'ZSX_UIV2') then return end
+if not olink._hasOverride('Notify') and GetResourceState('oxide-notify') == 'started' then return end
 
 local function iconForType(notifType)
     if notifType == 'success' then return 'check-circle'

@@ -1,6 +1,6 @@
-if GetResourceState('illenium-appearance') == 'missing' then return end
-if GetResourceState('rcore_clothing') == 'started' then return end
-if GetResourceState('17mov_CharacterSystem') == 'started' then return end
+if not olink._guardImpl('Clothing', 'illenium-appearance', 'illenium-appearance') then return end
+if not olink._hasOverride('Clothing') and GetResourceState('rcore_clothing') == 'started' then return end
+if not olink._hasOverride('Clothing') and GetResourceState('17mov_CharacterSystem') == 'started' then return end
 
 local Players = {}
 

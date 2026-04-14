@@ -1,6 +1,6 @@
-if GetResourceState('oxide-inventory') == 'started' then return end
-if GetResourceState('ox_inventory') == 'started' then return end
-if GetResourceState('origen_inventory') == 'missing' then return end
+if not olink._guardImpl('Inventory', 'origen_inventory', 'origen_inventory') then return end
+if not olink._hasOverride('Inventory') and GetResourceState('oxide-inventory') == 'started' then return end
+if not olink._hasOverride('Inventory') and GetResourceState('ox_inventory') == 'started' then return end
 
 local origin = exports.origen_inventory
 

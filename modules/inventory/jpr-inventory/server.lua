@@ -1,5 +1,5 @@
-if GetResourceState('oxide-inventory') == 'started' then return end
-if GetResourceState('jpr-inventory') == 'missing' then return end
+if not olink._guardImpl('Inventory', 'jpr-inventory', 'jpr-inventory') then return end
+if not olink._hasOverride('Inventory') and GetResourceState('oxide-inventory') == 'started' then return end
 
 local jpr = exports['jpr-inventory']
 local QBCore = exports['qb-core']:GetCoreObject()

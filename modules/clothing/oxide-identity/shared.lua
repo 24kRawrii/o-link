@@ -1,4 +1,4 @@
-if GetResourceState('oxide-identity') == 'missing' then return end
+if not olink._guardImpl('Clothing', 'oxide-identity', 'oxide-identity') then return end
 
 -- oxide-identity uses numeric component IDs {[0]={drawable,texture},...} for both components and props
 -- JSON-decoded keys may be strings, so we normalize them to numbers

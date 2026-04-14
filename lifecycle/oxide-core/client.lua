@@ -1,4 +1,4 @@
-if GetResourceState('oxide-core') == 'missing' then return end
+if not olink._guardImpl('Framework', 'oxide-core', 'oxide-core') then return end
 
 AddStateBagChangeHandler('oxide:character', ('player:%s'):format(cache.serverId), function(_, _, value)
     if value ~= nil then

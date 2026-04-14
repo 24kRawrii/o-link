@@ -1,4 +1,4 @@
-if GetResourceState('qbx_management') == 'missing' then return end
+if not olink._guardImpl('BossMenu', 'qbx_management', 'qbx_management') then return end
 
 olink._register('bossmenu', {
     ---@return string

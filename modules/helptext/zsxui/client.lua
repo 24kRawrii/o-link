@@ -1,4 +1,4 @@
-if GetResourceState('ZSX_UIV2') == 'missing' then return end
+if not olink._guardImpl('HelpText', 'zsxui', 'ZSX_UIV2') then return end
 
 olink._register('helptext', {
     ---@param message string

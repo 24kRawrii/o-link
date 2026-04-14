@@ -1,4 +1,4 @@
-if GetResourceState('oxide-identity') == 'missing' then return end
+if not olink._guardImpl('Clothing', 'oxide-identity', 'oxide-identity') then return end
 
 local Players = {}
 

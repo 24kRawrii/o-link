@@ -1,5 +1,5 @@
-if GetResourceState('oxide-vehicles') == 'started' then return end
-if GetResourceState('F_RealCarKeysSystem') == 'missing' then return end
+if not olink._guardImpl('VehicleKey', 'f_realcarkeyssystem', 'F_RealCarKeysSystem') then return end
+if not olink._hasOverride('VehicleKey') and GetResourceState('oxide-vehicles') == 'started' then return end
 
 olink._register('vehiclekey', {
     ---@param vehicle number Entity handle

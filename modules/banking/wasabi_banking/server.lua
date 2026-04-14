@@ -1,4 +1,4 @@
-if GetResourceState('wasabi_banking') == 'missing' then return end
+if not olink._guardImpl('Banking', 'wasabi_banking', 'wasabi_banking') then return end
 
 local wasabi_banking = exports['wasabi_banking']
 

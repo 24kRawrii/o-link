@@ -1,5 +1,5 @@
-if GetResourceState('qbx_core') == 'missing' then return end
-if GetResourceState('oxide-death') == 'started' then return end
+if not olink._guardImpl('Death', 'qbx_core', 'qbx_core') then return end
+if not olink._hasOverride('Death') and GetResourceState('oxide-death') == 'started' then return end
 
 olink._register('death', {
     ---@param src number

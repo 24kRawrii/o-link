@@ -1,4 +1,4 @@
-if GetResourceState('piotreq_gpt') == 'missing' then return end
+if not olink._guardImpl('Dispatch', 'piotreq_gpt', 'piotreq_gpt') then return end
 
 local function sendAlert(src, alertData)
     exports['piotreq_gpt']:SendAlert(src, {

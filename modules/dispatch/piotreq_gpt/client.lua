@@ -1,4 +1,4 @@
-if GetResourceState('piotreq_gpt') == 'missing' then return end
+if not olink._guardImpl('Dispatch', 'piotreq_gpt', 'piotreq_gpt') then return end
 
 olink._register('dispatch', {
     ---@return string

@@ -1,4 +1,4 @@
-if GetResourceState('Renewed-Banking') == 'missing' then return end
+if not olink._guardImpl('Banking', 'renewed-banking', 'Renewed-Banking') then return end
 
 local renewed = exports['Renewed-Banking']
 

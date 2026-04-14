@@ -1,4 +1,4 @@
-if GetResourceState('origen_police') == 'missing' then return end
+if not olink._guardImpl('Dispatch', 'origen_police', 'origen_police') then return end
 
 olink._register('dispatch', {
     ---@return string

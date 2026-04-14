@@ -1,5 +1,5 @@
-if GetResourceState('night_natural_disasters') == 'missing' then return end
-if GetResourceState('oxide-weather') == 'started' then return end
+if not olink._guardImpl('Weather', 'night_natural_disasters', 'night_natural_disasters') then return end
+if not olink._hasOverride('Weather') and GetResourceState('oxide-weather') == 'started' then return end
 
 local weatherNames = {
     [`EXTRASUNNY`] = 'EXTRASUNNY',

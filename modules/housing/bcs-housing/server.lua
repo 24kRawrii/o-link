@@ -1,4 +1,4 @@
-if GetResourceState('bcs-housing') == 'missing' then return end
+if not olink._guardImpl('Housing', 'bcs-housing', 'bcs-housing') then return end
 
 olink._register('housing', {
     ---@return string

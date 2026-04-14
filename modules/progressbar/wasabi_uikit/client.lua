@@ -1,8 +1,8 @@
-if GetResourceState('oxide-progressbar') == 'started' then return end
-if GetResourceState('progressbar') == 'started' then return end
-if GetResourceState('keep-progressbar') == 'started' then return end
-if GetResourceState('lation_ui') == 'started' then return end
-if GetResourceState('wasabi_uikit') == 'missing' then return end
+if not olink._guardImpl('ProgressBar', 'wasabi_uikit', 'wasabi_uikit') then return end
+if not olink._hasOverride('ProgressBar') and GetResourceState('oxide-progressbar') == 'started' then return end
+if not olink._hasOverride('ProgressBar') and GetResourceState('progressbar') == 'started' then return end
+if not olink._hasOverride('ProgressBar') and GetResourceState('keep-progressbar') == 'started' then return end
+if not olink._hasOverride('ProgressBar') and GetResourceState('lation_ui') == 'started' then return end
 
 olink._register('progressbar', {
     ---@param options table { duration, label, canCancel?, style?: string, disable?: { move, car, combat, mouse }, anim?: { dict, clip, flag } }

@@ -1,4 +1,4 @@
-if GetResourceState('oxide-core') == 'missing' then return end
+if not olink._guardImpl('Job', 'oxide-core', 'oxide-core') then return end
 
 olink._register('job', {
     ---@return table|nil JobData { name, label, grade, gradeLabel, rank, isBoss, onDuty }

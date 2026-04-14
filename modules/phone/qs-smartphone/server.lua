@@ -1,4 +1,4 @@
-if GetResourceState('qs-smartphone') == 'missing' then return end
+if not olink._guardImpl('Phone', 'qs-smartphone', 'qs-smartphone') then return end
 
 olink._register('phone', {
     ---@return string

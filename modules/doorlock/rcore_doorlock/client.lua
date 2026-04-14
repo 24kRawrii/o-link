@@ -1,4 +1,4 @@
-if GetResourceState('rcore_doorlock') == 'missing' then return end
+if not olink._guardImpl('Doorlock', 'rcore_doorlock', 'rcore_doorlock') then return end
 
 olink._register('doorlock', {
     ---@return string | nil

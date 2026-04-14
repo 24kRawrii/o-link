@@ -1,5 +1,5 @@
-if GetResourceState('oxide-inventory') == 'started' then return end
-if GetResourceState('jpr-inventory') == 'missing' then return end
+if not olink._guardImpl('Inventory', 'jpr-inventory', 'jpr-inventory') then return end
+if not olink._hasOverride('Inventory') and GetResourceState('oxide-inventory') == 'started' then return end
 
 -- Server relays stash open via this event
 RegisterNetEvent('o-link:inventory:jpr:openStash', function(id, data)

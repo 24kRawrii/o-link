@@ -1,4 +1,4 @@
-if GetResourceState('lation_ui') == 'missing' then return end
+if not olink._guardImpl('HelpText', 'lation_ui', 'lation_ui') then return end
 
 olink._register('helptext', {
     ---@param message string

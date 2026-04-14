@@ -1,5 +1,5 @@
-if GetResourceState('qs-fuelstations') == 'missing' then return end
-if GetResourceState('oxide-vehicles') == 'started' then return end
+if not olink._guardImpl('Fuel', 'qs-fuelstations', 'qs-fuelstations') then return end
+if not olink._hasOverride('Fuel') and GetResourceState('oxide-vehicles') == 'started' then return end
 
 olink._register('fuel', {
     ---@return string

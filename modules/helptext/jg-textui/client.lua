@@ -1,4 +1,4 @@
-if GetResourceState('jg-textui') == 'missing' then return end
+if not olink._guardImpl('HelpText', 'jg-textui', 'jg-textui') then return end
 
 olink._register('helptext', {
     ---@param message string

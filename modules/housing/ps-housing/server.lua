@@ -1,4 +1,4 @@
-if GetResourceState('ps-housing') == 'missing' then return end
+if not olink._guardImpl('Housing', 'ps-housing', 'ps-housing') then return end
 
 RegisterNetEvent('ps-housing:server:enterProperty', function(insideId)
     local src = source

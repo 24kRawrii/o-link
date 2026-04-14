@@ -1,4 +1,4 @@
-if GetResourceState('qb-garages') == 'missing' then return end
+if not olink._guardImpl('VehicleOwnership', 'qb-garages', 'qb-garages') then return end
 
 olink._register('vehicleOwnership', {
     ---@return string

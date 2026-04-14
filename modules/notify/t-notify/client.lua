@@ -1,5 +1,5 @@
-if GetResourceState('oxide-notify') == 'started' then return end
-if GetResourceState('t-notify') == 'missing' then return end
+if not olink._guardImpl('Notify', 't-notify', 't-notify') then return end
+if not olink._hasOverride('Notify') and GetResourceState('oxide-notify') == 'started' then return end
 
 local mod = {
     ---@param message string

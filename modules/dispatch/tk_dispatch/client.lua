@@ -1,4 +1,4 @@
-if GetResourceState('tk_dispatch') == 'missing' then return end
+if not olink._guardImpl('Dispatch', 'tk_dispatch', 'tk_dispatch') then return end
 
 olink._register('dispatch', {
     ---@return string

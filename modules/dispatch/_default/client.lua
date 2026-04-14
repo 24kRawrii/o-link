@@ -1,20 +1,21 @@
 -- Default dispatch fallback client.
 -- Provides SendAlert that fires a server event, and receives alerts as notifications + blips.
 
-if GetResourceState('ps-dispatch') == 'started' then return end
-if GetResourceState('cd_dispatch') == 'started' then return end
-if GetResourceState('lb-tablet') == 'started' then return end
-if GetResourceState('bub-mdt') == 'started' then return end
-if GetResourceState('emergencydispatch') == 'started' then return end
-if GetResourceState('qs_dispatch') == 'started' then return end
-if GetResourceState('tk_dispatch') == 'started' then return end
-if GetResourceState('fd_dispatch') == 'started' then return end
-if GetResourceState('kartik-mdt') == 'started' then return end
-if GetResourceState('linden_outlawalert') == 'started' then return end
-if GetResourceState('origen_police') == 'started' then return end
-if GetResourceState('piotreq_gpt') == 'started' then return end
-if GetResourceState('redutzu-mdt') == 'started' then return end
-if GetResourceState('wasabi_mdt') == 'started' then return end
+if not olink._guardImpl('Dispatch', '_default', false) then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('ps-dispatch') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('cd_dispatch') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('lb-tablet') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('bub-mdt') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('emergencydispatch') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('qs_dispatch') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('tk_dispatch') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('fd_dispatch') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('kartik-mdt') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('linden_outlawalert') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('origen_police') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('piotreq_gpt') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('redutzu-mdt') == 'started' then return end
+if not olink._hasOverride('Dispatch') and GetResourceState('wasabi_mdt') == 'started' then return end
 
 olink._register('dispatch', {
     GetResourceName = function() return '_default' end,

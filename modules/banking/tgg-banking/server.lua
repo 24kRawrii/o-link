@@ -1,4 +1,4 @@
-if GetResourceState('tgg-banking') == 'missing' then return end
+if not olink._guardImpl('Banking', 'tgg-banking', 'tgg-banking') then return end
 
 local tgg = exports['tgg-banking']
 

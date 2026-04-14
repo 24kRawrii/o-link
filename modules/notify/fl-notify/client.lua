@@ -1,5 +1,5 @@
-if GetResourceState('oxide-notify') == 'started' then return end
-if GetResourceState('FL-Notify') == 'missing' then return end
+if not olink._guardImpl('Notify', 'fl-notify', 'FL-Notify') then return end
+if not olink._hasOverride('Notify') and GetResourceState('oxide-notify') == 'started' then return end
 
 local function typeToCode(notifType)
     if notifType == 'error' or notifType == 'info' then

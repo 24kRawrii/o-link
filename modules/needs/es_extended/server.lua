@@ -1,5 +1,5 @@
-if GetResourceState('es_extended') == 'missing' then return end
-if GetResourceState('oxide-needs') == 'started' then return end
+if not olink._guardImpl('Needs', 'es_extended', 'es_extended') then return end
+if not olink._hasOverride('Needs') and GetResourceState('oxide-needs') == 'started' then return end
 
 -- ESX uses esx_status system with range 0-1000000 (client-side events).
 -- o-link normalizes to 0-100. ESX has no native stress system.

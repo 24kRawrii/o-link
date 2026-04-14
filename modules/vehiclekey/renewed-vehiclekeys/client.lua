@@ -1,5 +1,5 @@
-if GetResourceState('oxide-vehicles') == 'started' then return end
-if GetResourceState('Renewed-Vehiclekeys') == 'missing' then return end
+if not olink._guardImpl('VehicleKey', 'renewed-vehiclekeys', 'Renewed-Vehiclekeys') then return end
+if not olink._hasOverride('VehicleKey') and GetResourceState('oxide-vehicles') == 'started' then return end
 
 olink._register('vehiclekey', {
     ---@param vehicle number Entity handle

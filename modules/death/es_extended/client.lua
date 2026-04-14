@@ -1,5 +1,5 @@
-if GetResourceState('es_extended') == 'missing' then return end
-if GetResourceState('oxide-death') == 'started' then return end
+if not olink._guardImpl('Death', 'es_extended', 'es_extended') then return end
+if not olink._hasOverride('Death') and GetResourceState('oxide-death') == 'started' then return end
 
 olink._register('death', {
     ---@return boolean

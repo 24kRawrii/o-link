@@ -1,9 +1,10 @@
 -- Default skill system client fallback.
 -- Uses a callback to query the server for skill level (framework-agnostic).
 
-if GetResourceState('pickle_xp') == 'started' then return end
-if GetResourceState('OT_skills') == 'started' then return end
-if GetResourceState('evolent_skills') == 'started' then return end
+if not olink._guardImpl('Skills', '_default', false) then return end
+if not olink._hasOverride('Skills') and GetResourceState('pickle_xp') == 'started' then return end
+if not olink._hasOverride('Skills') and GetResourceState('OT_skills') == 'started' then return end
+if not olink._hasOverride('Skills') and GetResourceState('evolent_skills') == 'started' then return end
 
 olink._register('skills', {
     GetResourceName = function() return '_default' end,

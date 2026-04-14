@@ -1,5 +1,5 @@
-if GetResourceState('qbx_core') == 'missing' then return end
-if GetResourceState('oxide-needs') == 'started' then return end
+if not olink._guardImpl('Needs', 'qbx_core', 'qbx_core') then return end
+if not olink._hasOverride('Needs') and GetResourceState('oxide-needs') == 'started' then return end
 
 local function clamp(v) return math.max(0, math.min(100, v)) end
 

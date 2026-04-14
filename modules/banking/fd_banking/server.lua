@@ -1,4 +1,4 @@
-if GetResourceState('fd_banking') == 'missing' then return end
+if not olink._guardImpl('Banking', 'fd_banking', 'fd_banking') then return end
 
 local fd_banking = exports['fd_banking']
 

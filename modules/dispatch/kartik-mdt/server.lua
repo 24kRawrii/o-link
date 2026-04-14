@@ -1,4 +1,4 @@
-if GetResourceState('kartik-mdt') == 'missing' then return end
+if not olink._guardImpl('Dispatch', 'kartik-mdt', 'kartik-mdt') then return end
 
 olink._register('dispatch', {
     ---@return string

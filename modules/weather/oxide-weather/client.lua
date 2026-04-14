@@ -1,4 +1,4 @@
-if GetResourceState('oxide-weather') == 'missing' then return end
+if not olink._guardImpl('Weather', 'oxide-weather', 'oxide-weather') then return end
 
 olink._register('weather', {
     ---@return string

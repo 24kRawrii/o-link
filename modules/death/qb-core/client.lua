@@ -1,6 +1,6 @@
-if GetResourceState('qb-core') == 'missing' then return end
-if GetResourceState('qbx_core') == 'started' then return end
-if GetResourceState('oxide-death') == 'started' then return end
+if not olink._guardImpl('Death', 'qb-core', 'qb-core') then return end
+if not olink._hasOverride('Death') and GetResourceState('qbx_core') == 'started' then return end
+if not olink._hasOverride('Death') and GetResourceState('oxide-death') == 'started' then return end
 
 local QBCore = exports['qb-core']:GetCoreObject()
 

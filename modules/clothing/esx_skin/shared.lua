@@ -1,6 +1,6 @@
-if GetResourceState('esx_skin') == 'missing' then return end
-if GetResourceState('rcore_clothing') == 'started' then return end
-if GetResourceState('17mov_CharacterSystem') == 'started' then return end
+if not olink._guardImpl('Clothing', 'esx_skin', 'esx_skin') then return end
+if not olink._hasOverride('Clothing') and GetResourceState('rcore_clothing') == 'started' then return end
+if not olink._hasOverride('Clothing') and GetResourceState('17mov_CharacterSystem') == 'started' then return end
 
 -- esx_skin component map: componentId -> name suffix used in ESX skin keys
 local ComponentMap = {

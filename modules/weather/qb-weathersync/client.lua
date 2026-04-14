@@ -1,5 +1,5 @@
-if GetResourceState('qb-weathersync') == 'missing' then return end
-if GetResourceState('oxide-weather') == 'started' then return end
+if not olink._guardImpl('Weather', 'qb-weathersync', 'qb-weathersync') then return end
+if not olink._hasOverride('Weather') and GetResourceState('oxide-weather') == 'started' then return end
 
 local trackedWeather = 'EXTRASUNNY'
 

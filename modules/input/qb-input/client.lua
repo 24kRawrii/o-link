@@ -1,4 +1,4 @@
-if GetResourceState('qb-input') == 'missing' then return end
+if not olink._guardImpl('Input', 'qb-input', 'qb-input') then return end
 
 -- Type conversion helpers
 local function QBTypeToOxType(_type)

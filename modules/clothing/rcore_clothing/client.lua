@@ -1,5 +1,5 @@
-if GetResourceState('rcore_clothing') == 'missing' then return end
-if GetResourceState('17mov_CharacterSystem') == 'started' then return end
+if not olink._guardImpl('Clothing', 'rcore_clothing', 'rcore_clothing') then return end
+if not olink._hasOverride('Clothing') and GetResourceState('17mov_CharacterSystem') == 'started' then return end
 
 olink._register('clothing', {
     ---@return string

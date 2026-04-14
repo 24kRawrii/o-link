@@ -1,4 +1,4 @@
-if GetResourceState('oxide-vehicles') == 'missing' then return end
+if not olink._guardImpl('VehicleKey', 'oxide-vehicles', 'oxide-vehicles') then return end
 
 olink._register('vehiclekey', {
     ---@param vehicle number Entity handle

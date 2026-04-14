@@ -2,9 +2,10 @@
 -- Only loads when no external skill resource is running.
 -- Provides a RuneScape-style XP curve with character metadata persistence.
 
-if GetResourceState('pickle_xp') == 'started' then return end
-if GetResourceState('OT_skills') == 'started' then return end
-if GetResourceState('evolent_skills') == 'started' then return end
+if not olink._guardImpl('Skills', '_default', false) then return end
+if not olink._hasOverride('Skills') and GetResourceState('pickle_xp') == 'started' then return end
+if not olink._hasOverride('Skills') and GetResourceState('OT_skills') == 'started' then return end
+if not olink._hasOverride('Skills') and GetResourceState('evolent_skills') == 'started' then return end
 
 local Skills = {}
 local cachedXp = {}

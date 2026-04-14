@@ -1,7 +1,7 @@
-if GetResourceState('qb-clothing') == 'missing' then return end
-if GetResourceState('oxide-clothing') == 'started' then return end
-if GetResourceState('rcore_clothing') == 'started' then return end
-if GetResourceState('17mov_CharacterSystem') == 'started' then return end
+if not olink._guardImpl('Clothing', 'qb-clothing', 'qb-clothing') then return end
+if not olink._hasOverride('Clothing') and GetResourceState('oxide-clothing') == 'started' then return end
+if not olink._hasOverride('Clothing') and GetResourceState('rcore_clothing') == 'started' then return end
+if not olink._hasOverride('Clothing') and GetResourceState('17mov_CharacterSystem') == 'started' then return end
 
 local QBCore = exports['qb-core']:GetCoreObject()
 local Players = {}

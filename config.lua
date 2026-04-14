@@ -1,17 +1,37 @@
 Config = {}
 
--- Override auto-detection for any module (leave nil to auto-detect)
--- Most servers should not need to change anything here.
+-- Force a specific implementation for any bridged namespace.
+-- Values use implementation folder names and are matched case-insensitively.
+-- Leave keys unset or nil to keep normal auto-detection and priority behavior.
 Config.Overrides = {
-    -- Framework   = 'oxide-core',       -- 'oxide-core' | 'qb-core' | 'qbx_core' | 'es_extended'
-    -- Inventory   = 'oxide-inventory',   -- 'oxide-inventory' | 'ox_inventory' | 'qb-inventory'
-    -- Money       = 'oxide-accounts',    -- 'oxide-accounts' | 'qb-core' | 'qbx_core' | 'es_extended'
-    -- Notify      = 'oxide-notify',      -- 'oxide-notify' | 'ox_lib'
-    -- HelpText    = 'ox_lib',            -- 'ox_lib'
-    -- Target      = 'ox_target',         -- 'ox_target' | 'qb-target'
-    -- ProgressBar = 'ox_lib',            -- 'ox_lib'
-    -- VehicleKey  = 'oxide-vehicles',    -- 'oxide-vehicles' | 'qb-vehiclekeys'
-    -- Vehicles    = 'oxide-vehicles',    -- 'oxide-vehicles' | 'qb-garages' | 'qbx_vehicles' | 'esx_vehicleshop'
+    -- Framework         = 'oxide-core',
+    -- Character         = 'oxide-core',
+    -- Job               = 'oxide-core',
+    -- Money             = 'oxide-accounts',
+    -- Inventory         = 'oxide-inventory',
+    -- Vehicles          = 'oxide-vehicles',
+    -- VehicleProperties = 'vehicleproperties',
+    -- VehicleOwnership  = 'oxide-vehicles',
+    -- Notify            = 'oxide-notify',
+    -- HelpText          = 'ox_lib',
+    -- Target            = 'ox_target',
+    -- ProgressBar       = 'ox_lib',
+    -- VehicleKey        = 'oxide-vehicles',
+    -- Fuel              = 'oxide-vehicles',
+    -- Weather           = 'oxide-weather',
+    -- Input             = 'ox_lib',
+    -- Menu              = 'oxide-menu',
+    -- Zones             = 'oxlib',
+    -- Phone             = 'oxide-phone',
+    -- Clothing          = 'oxide-clothing',
+    -- Dispatch          = '_default',
+    -- Doorlock          = 'ox_doorlock',
+    -- Housing           = 'ps-housing',
+    -- BossMenu          = 'qbx_management',
+    -- Skills            = '_default',
+    -- Death             = 'oxide-death',
+    -- Needs             = 'oxide-needs',
+    -- Gang              = 'oxide-core',
 }
 
 Config.Debug = true

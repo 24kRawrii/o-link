@@ -1,4 +1,4 @@
-if GetResourceState('oxide-vehicles') == 'missing' then return end
+if not olink._guardImpl('Fuel', 'oxide-vehicles', 'oxide-vehicles') then return end
 
 olink._register('fuel', {
     ---@return string

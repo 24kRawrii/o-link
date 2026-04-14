@@ -1,4 +1,4 @@
-if GetResourceState('oxide-vehicles') == 'missing' then return end
+if not olink._guardImpl('Vehicles', 'oxide-vehicles', 'oxide-vehicles') then return end
 
 ---Resolve a stateId to numeric char_id for DB queries
 ---@param identifier string stateId or char_id

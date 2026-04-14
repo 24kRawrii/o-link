@@ -1,5 +1,5 @@
-if GetResourceState('Renewed-Weathersync') == 'missing' then return end
-if GetResourceState('oxide-weather') == 'started' then return end
+if not olink._guardImpl('Weather', 'renewed-weathersync', 'Renewed-Weathersync') then return end
+if not olink._hasOverride('Weather') and GetResourceState('oxide-weather') == 'started' then return end
 
 olink._register('weather', {
     ---@return string

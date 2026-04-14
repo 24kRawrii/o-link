@@ -1,4 +1,4 @@
-if GetResourceState('es_extended') == 'missing' then return end
+if not olink._guardImpl('Framework', 'es_extended', 'es_extended') then return end
 
 RegisterNetEvent('esx:playerLoaded', function(src)
     src = src or source

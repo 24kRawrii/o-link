@@ -1,4 +1,4 @@
-if GetResourceState('oxide-death') == 'missing' then return end
+if not olink._guardImpl('Death', 'oxide-death', 'oxide-death') then return end
 
 olink._register('death', {
     ---@param src number

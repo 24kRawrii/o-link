@@ -1,4 +1,4 @@
-if GetResourceState('ox_doorlock') == 'missing' then return end
+if not olink._guardImpl('Doorlock', 'ox_doorlock', 'ox_doorlock') then return end
 
 olink._register('doorlock', {
     ---@param doorID string|number

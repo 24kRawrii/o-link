@@ -14,8 +14,8 @@
 ---@field onExit fun(data:ZoneData)? Callback invoked on exit
 ---@alias ZoneType "box"|"sphere"|"poly"
 
-if GetResourceState('PolyZone') == 'missing' then return end
-if GetResourceState('ox_lib') == 'started' then return end
+if not olink._guardImpl('Zones', 'polyzone', 'PolyZone') then return end
+if not olink._hasOverride('Zones') and GetResourceState('ox_lib') == 'started' then return end
 
 local allZones = {}
 local zoneCounter = 0

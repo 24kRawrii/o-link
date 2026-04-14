@@ -1,5 +1,5 @@
-if GetResourceState('lation_ui') == 'missing' then return end
-if GetResourceState('qb-input') == 'started' then return end
+if not olink._guardImpl('Input', 'lation_ui', 'lation_ui') then return end
+if not olink._hasOverride('Input') and GetResourceState('qb-input') == 'started' then return end
 
 -- Type conversion helpers
 local function OxTypeToQBType(_type)

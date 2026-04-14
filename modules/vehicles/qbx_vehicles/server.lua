@@ -1,4 +1,4 @@
-if GetResourceState('qbx_core') == 'missing' then return end
+if not olink._guardImpl('Vehicles', 'qbx_vehicles', 'qbx_core') then return end
 
 olink._register('vehicles', {
     ---@param plate string

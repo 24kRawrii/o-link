@@ -1,5 +1,5 @@
-if GetResourceState('qb-core') == 'missing' then return end
-if GetResourceState('qbx_core') == 'started' then return end
+if not olink._guardImpl('Framework', 'qb-core', 'qb-core') then return end
+if not olink._hasOverride('Framework') and GetResourceState('qbx_core') == 'started' then return end
 
 RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function(src)
     src = src or source

@@ -1,4 +1,4 @@
-if GetResourceState('kartik-banking') == 'missing' then return end
+if not olink._guardImpl('Banking', 'kartik-banking', 'kartik-banking') then return end
 
 local kartik = exports['kartik-banking']
 

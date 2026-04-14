@@ -1,4 +1,4 @@
-if GetResourceState('qb-banking') == 'missing' then return end
+if not olink._guardImpl('Banking', 'qb-banking', 'qb-banking') then return end
 
 local qbBanking = exports['qb-banking']
 

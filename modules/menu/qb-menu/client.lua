@@ -1,5 +1,5 @@
-if GetResourceState('qb-menu') == 'missing' then return end
-if GetResourceState('oxide-menu') == 'started' then return end
+if not olink._guardImpl('Menu', 'qb-menu', 'qb-menu') then return end
+if not olink._hasOverride('Menu') and GetResourceState('oxide-menu') == 'started' then return end
 
 local menus = {}
 

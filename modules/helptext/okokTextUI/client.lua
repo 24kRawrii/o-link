@@ -1,4 +1,4 @@
-if GetResourceState('okokTextUI') == 'missing' then return end
+if not olink._guardImpl('HelpText', 'okokTextUI', 'okokTextUI') then return end
 
 olink._register('helptext', {
     ---@param message string

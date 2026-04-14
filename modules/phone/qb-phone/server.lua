@@ -1,9 +1,9 @@
-if GetResourceState('qb-phone') == 'missing' then return end
-if GetResourceState('lb-phone') == 'started' then return end
-if GetResourceState('gksphone') == 'started' then return end
-if GetResourceState('okokPhone') == 'started' then return end
-if GetResourceState('qs-smartphone') == 'started' then return end
-if GetResourceState('yseries') == 'started' then return end
+if not olink._guardImpl('Phone', 'qb-phone', 'qb-phone') then return end
+if not olink._hasOverride('Phone') and GetResourceState('lb-phone') == 'started' then return end
+if not olink._hasOverride('Phone') and GetResourceState('gksphone') == 'started' then return end
+if not olink._hasOverride('Phone') and GetResourceState('okokPhone') == 'started' then return end
+if not olink._hasOverride('Phone') and GetResourceState('qs-smartphone') == 'started' then return end
+if not olink._hasOverride('Phone') and GetResourceState('yseries') == 'started' then return end
 
 local QBCore = exports['qb-core']:GetCoreObject()
 

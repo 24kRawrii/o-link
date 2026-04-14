@@ -1,4 +1,4 @@
-if GetResourceState('esx_society') == 'missing' then return end
+if not olink._guardImpl('BossMenu', 'esx_society', 'esx_society') then return end
 
 RegisterNetEvent('o-link:client:OpenBossMenu', function(jobName, jobType)
     if source ~= 65535 then return end

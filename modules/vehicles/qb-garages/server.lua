@@ -1,5 +1,5 @@
-if GetResourceState('qb-core') == 'missing' then return end
-if GetResourceState('qbx_core') == 'started' then return end
+if not olink._guardImpl('Vehicles', 'qb-garages', 'qb-core') then return end
+if not olink._hasOverride('Vehicles') and GetResourceState('qbx_core') == 'started' then return end
 
 olink._register('vehicles', {
     ---@param plate string

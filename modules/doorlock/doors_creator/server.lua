@@ -1,4 +1,4 @@
-if GetResourceState('doors_creator') == 'missing' then return end
+if not olink._guardImpl('Doorlock', 'doors_creator', 'doors_creator') then return end
 
 olink._register('doorlock', {
     ---@param doorID string

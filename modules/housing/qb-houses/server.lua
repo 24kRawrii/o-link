@@ -1,4 +1,4 @@
-if GetResourceState('qb-houses') == 'missing' then return end
+if not olink._guardImpl('Housing', 'qb-houses', 'qb-houses') then return end
 
 RegisterNetEvent('qb-houses:server:SetInsideMeta', function(insideId, bool)
     local src = source

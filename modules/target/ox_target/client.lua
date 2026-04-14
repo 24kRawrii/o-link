@@ -1,4 +1,4 @@
-if GetResourceState('ox_target') == 'missing' then return end
+if not olink._guardImpl('Target', 'ox_target', 'ox_target') then return end
 
 local ox_target = exports.ox_target
 local targetZones = {}
