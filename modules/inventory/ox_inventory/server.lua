@@ -11,7 +11,7 @@ olink._register('inventory', {
     ---@param item string
     ---@return number
     GetItemCount = function(src, item)
-        return ox_inventory:Search(src, 'count', item) or 0
+        return ox_inventory:GetItemCount(src, item, nil, false) or 0
     end,
 
     ---@param src number
@@ -19,7 +19,7 @@ olink._register('inventory', {
     ---@param count number|nil
     ---@return boolean
     HasItem = function(src, item, count)
-        local total = ox_inventory:Search(src, 'count', item) or 0
+        local total = ox_inventory:GetItemCount(src, item, nil, false) or 0
         return total >= (count or 1)
     end,
 
@@ -68,7 +68,7 @@ olink._register('inventory', {
         local items = ox_inventory:GetInventoryItems(src, false)
         if not items then return {} end
         local result = {}
-        for _, item in ipairs(items) do
+        for _, item in pairs(items) do
             result[#result + 1] = {
                 name     = item.name,
                 label    = item.label,

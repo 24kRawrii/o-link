@@ -21,6 +21,7 @@ shared_scripts {
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
+    'core/defaults_server.lua',
     'modules/framework/**/server.lua',
     'modules/character/**/server.lua',
     'modules/job/**/server.lua',
@@ -48,6 +49,7 @@ server_scripts {
 }
 
 client_scripts {
+    'core/defaults_client.lua',
     'modules/framework/**/client.lua',
     'modules/character/**/client.lua',
     'modules/job/**/client.lua',

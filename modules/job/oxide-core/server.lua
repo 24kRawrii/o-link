@@ -31,14 +31,25 @@ olink._register('job', {
 
     ---@param src number
     ---@param jobName string
-    ---@param grade string|number
+    ---@param grade string|number|table Grade rank, name, or { rank, name, label }
+    ---@param jobLabel? string Optional human-readable job label (defaults to jobName)
     ---@return boolean
-    Set = function(src, jobName, grade)
+    Set = function(src, jobName, grade, jobLabel)
         local char = GetChar(src)
         if not char then return false end
-        local gradeRank = tonumber(grade) or 0
-        local gradeName = type(grade) == 'string' and grade or 'default'
-        char.SetJob(jobName, jobName, gradeName, gradeName, gradeRank)
+
+        local gradeRank, gradeName, gradeLabel
+        if type(grade) == 'table' then
+            gradeRank  = tonumber(grade.rank or grade.grade_rank or grade.level) or 0
+            gradeName  = grade.name or grade.grade_name or 'default'
+            gradeLabel = grade.label or grade.grade_label or gradeName
+        else
+            gradeRank  = tonumber(grade) or 0
+            gradeName  = type(grade) == 'string' and grade or 'default'
+            gradeLabel = gradeName
+        end
+
+        char.SetJob(jobName, jobLabel or jobName, gradeName, gradeLabel, gradeRank)
         return true
     end,
 

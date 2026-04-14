@@ -10,7 +10,7 @@ olink._register('inventory', {
         local items = ox_inventory:GetPlayerItems()
         if not items then return {} end
         local result = {}
-        for _, item in ipairs(items) do
+        for _, item in pairs(items) do
             result[#result + 1] = {
                 name     = item.name,
                 label    = item.label,
@@ -33,7 +33,7 @@ olink._register('inventory', {
     ---@param count number|nil
     ---@return boolean
     HasItem = function(item, count)
-        return (ox_inventory:Search('count', item, nil) or 0) >= (count or 1)
+        return (ox_inventory:GetItemCount(item, nil, false) or 0) >= (count or 1)
     end,
 
     ---@param item string

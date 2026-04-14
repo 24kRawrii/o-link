@@ -29,11 +29,14 @@ olink._register('job', {
 
     ---@param src number
     ---@param jobName string
-    ---@param grade string|number
+    ---@param grade string|number|table Grade rank, name, or { rank, name, label }
     ---@return boolean
     Set = function(src, jobName, grade)
         local xPlayer = GetPlayer(src)
         if not xPlayer then return false end
+        if type(grade) == 'table' then
+            grade = tonumber(grade.rank or grade.grade_rank or grade.level) or 0
+        end
         if not ESX.DoesJobExist(jobName, grade) then return false end
         xPlayer.setJob(jobName, grade, true)
         return true

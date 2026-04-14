@@ -29,11 +29,14 @@ olink._register('job', {
 
     ---@param src number
     ---@param jobName string
-    ---@param grade string|number
+    ---@param grade string|number|table Grade rank, name, or { rank, name, label }
     ---@return boolean
     Set = function(src, jobName, grade)
         local player = GetPlayer(src)
         if not player then return false end
+        if type(grade) == 'table' then
+            grade = tonumber(grade.rank or grade.grade_rank or grade.level) or 0
+        end
         return player.Functions.SetJob(jobName, grade) or true
     end,
 
