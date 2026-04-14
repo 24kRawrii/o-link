@@ -51,4 +51,11 @@ olink._register('framework', {
             cb(src, itemData)
         end)
     end,
+
+    ---@param src number
+    ---@return boolean
+    Logout = function(src)
+        QBCore.Functions.Logout(src)
+        return true
+    end,
 })

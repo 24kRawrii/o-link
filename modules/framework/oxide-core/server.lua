@@ -49,4 +49,18 @@ olink._register('framework', {
             })
         end)
     end,
+
+    ---@param src number
+    ---@return boolean
+    Logout = function(src)
+        local player = Oxide.Functions.GetPlayer(src)
+        if not player then return false end
+        local character = player.GetCharacter()
+        if character then
+            TriggerEvent('oxide:core:characterUnloading', src, player, character)
+        end
+        player.SetActiveCharacter(nil)
+        TriggerClientEvent('oxide:multichar:logoutComplete', src)
+        return true
+    end,
 })

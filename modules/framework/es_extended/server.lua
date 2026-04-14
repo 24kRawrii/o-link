@@ -51,4 +51,14 @@ olink._register('framework', {
             cb(src, itemData)
         end)
     end,
+
+    ---@param src number
+    ---@return boolean
+    Logout = function(src)
+        local xPlayer = ESX.GetPlayerFromId(src)
+        if not xPlayer then return false end
+        TriggerEvent('esx:playerLogout', src)
+        TriggerClientEvent('esx:onPlayerLogout', src)
+        return true
+    end,
 })
