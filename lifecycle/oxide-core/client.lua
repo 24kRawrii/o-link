@@ -11,7 +11,15 @@ end)
 
 AddStateBagChangeHandler('oxide:job', ('player:%s'):format(cache.serverId), function(_, _, value)
     if value then
-        TriggerEvent('olink:client:jobChanged', value)
+        TriggerEvent('olink:client:jobChanged', {
+            name       = value.jobName or 'unemployed',
+            label      = value.jobLabel or 'Unemployed',
+            grade      = value.gradeName or 'default',
+            gradeLabel = value.gradeLabel or 'Default',
+            rank       = value.gradeRank or 0,
+            isBoss     = value.boss or false,
+            onDuty     = value.onDuty or false,
+        })
     end
 end)
 
