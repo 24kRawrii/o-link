@@ -1,6 +1,7 @@
 if not olink._guardImpl('ProgressBar', 'zsxui', 'ZSX_UIV2') then return end
 if not olink._hasOverride('ProgressBar') and GetResourceState('oxide-progressbar') == 'started' then return end
 if not olink._hasOverride('ProgressBar') and GetResourceState('progressbar') == 'started' then return end
+if not olink._hasOverride('ProgressBar') and GetResourceState('esx_progressbar') == 'started' then return end
 if not olink._hasOverride('ProgressBar') and GetResourceState('keep-progressbar') == 'started' then return end
 if not olink._hasOverride('ProgressBar') and GetResourceState('lation_ui') == 'started' then return end
 if not olink._hasOverride('ProgressBar') and GetResourceState('wasabi_uikit') == 'started' then return end

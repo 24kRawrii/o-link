@@ -1,6 +1,7 @@
 if not olink._guardImpl('ProgressBar', 'lation_ui', 'lation_ui') then return end
 if not olink._hasOverride('ProgressBar') and GetResourceState('oxide-progressbar') == 'started' then return end
 if not olink._hasOverride('ProgressBar') and GetResourceState('progressbar') == 'started' then return end
+if not olink._hasOverride('ProgressBar') and GetResourceState('esx_progressbar') == 'started' then return end
 if not olink._hasOverride('ProgressBar') and GetResourceState('keep-progressbar') == 'started' then return end
 
 olink._register('progressbar', {
