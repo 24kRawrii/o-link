@@ -28,7 +28,7 @@ olink._register('dispatch', {
                     colour = data.blipData and data.blipData.color or 1,
                     flashes = false,
                     text = data.message or 'Alert',
-                    time = data.time and (data.time * 1000) or 20000,
+                    time = data.time or 20000,
                 },
                 otherData = {
                     {

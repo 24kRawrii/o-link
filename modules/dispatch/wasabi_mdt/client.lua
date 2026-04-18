@@ -10,12 +10,13 @@ olink._register('dispatch', {
     SendAlert = function(data)
         local fallbackCoords = GetEntityCoords(PlayerPedId())
         local coords = data.coords or fallbackCoords
+        local streetName = GetStreetNameFromHashKey(GetStreetNameAtCoord(coords.x, coords.y, coords.z)) or 'Unknown'
         exports.wasabi_mdt:CreateDispatch({
             type = data.code or '10-80',
             title = data.code or '10-80',
             description = data.message or 'No message provided',
-            location = { coords.x, coords.y, coords.z },
-            coords = { coords.x, coords.y, coords.z },
+            location = streetName,
+            coords = { x = coords.x, y = coords.y, z = coords.z },
         })
     end,
 })
