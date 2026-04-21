@@ -56,7 +56,24 @@ olink._register('inventory', {
     ---@param src number
     ---@return table[] SlotData[]
     GetPlayerInventory = function(src)
-        return {}
+        local player = QBCore.Functions.GetPlayer(src)
+        if not player then return {} end
+        local items = player.PlayerData and player.PlayerData.items
+        if not items then return {} end
+        local result = {}
+        for _, item in pairs(items) do
+            if item and item.name then
+                result[#result + 1] = {
+                    name     = item.name,
+                    label    = item.label or item.name,
+                    count    = item.amount,
+                    slot     = item.slot,
+                    weight   = item.weight,
+                    metadata = item.info or item.metadata or {},
+                }
+            end
+        end
+        return result
     end,
 
     ---@param src number
